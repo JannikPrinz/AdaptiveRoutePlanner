@@ -110,6 +110,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AdaptiveRoutePlanner.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AdaptiveRoutePlanner.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
