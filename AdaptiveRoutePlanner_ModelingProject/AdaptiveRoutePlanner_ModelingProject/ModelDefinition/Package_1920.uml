@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="d144fbee-17ba-468c-9f95-420a14d6a96a"
+  name="AdaptiveRoutePlanner" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="9ca67aa4-99a2-4cb8-a20a-23e28f77d73c"
+        name="RoutePlanner"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedOperationsInternal>
+          <operation
+            Id="12f9879a-a066-4cd3-b167-389156ce0460"
+            name="CalculateFastestRoute"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <description>Use A-Star</description>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="50c299ec-dc3e-4a20-8846-a9abb9131792"
+                  name="start"
+                  direction="In">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="1aeaa0a2-5776-498c-b84f-ed9f6aa8a80c"
+                      LastKnownName="Struct_Position"
+                      LastKnownLocation="Package_1920.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="505f119c-b7ba-4136-9aed-5f5bfed0e34d"
+                  name="target"
+                  direction="In">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="1aeaa0a2-5776-498c-b84f-ed9f6aa8a80c"
+                      LastKnownName="Struct_Position"
+                      LastKnownLocation="Package_1920.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="06f10589-d0a8-442c-8d14-6e5052e41543"
+                  direction="Return">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="90ff6994-86e0-4a2e-88c7-a1d14541fc4d"
+                      LastKnownName="List&lt;Nodes&gt;"
+                      LastKnownLocation="Package_1920.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="b9a72a80-7a6f-4e4f-b0cd-78d819b646f9"
+            name="AddMapData"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="1ff3c373-01fd-48d4-acdb-df084831cf19"
+                  name="Graph"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="051f6e3c-6efd-480c-a60b-d5c5e195a457"
+            name="AddTrafficInformation"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="3967aaa0-e6de-491e-8063-02ec594d6e7d"
+                  name="TrafficData"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="1aeaa0a2-5776-498c-b84f-ed9f6aa8a80c"
+        name="Struct_Position"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <property
+            Id="30cc1385-367f-40a8-8eef-ff59e931b37c"
+            name="X"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="faf32b66-9967-4a2d-bbb5-86a39825e713"
+            name="Y"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="90ff6994-86e0-4a2e-88c7-a1d14541fc4d"
+        name="List&lt;Nodes&gt;" />
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

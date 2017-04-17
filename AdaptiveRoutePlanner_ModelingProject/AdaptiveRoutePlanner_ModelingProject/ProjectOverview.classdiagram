@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="e667caad-455b-4b83-ae98-a7054a864f3c" name="ProjectOverview" linkedPackageId="63a24f1f-8f31-48b7-a696-789b574e4c79" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="91516acf-299c-46e0-a85a-7092e6c14b0e">
+      <profileInstance Id="51c912d0-fddd-4b7a-9fab-15f75219c4e2" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="f01717a5-fd94-4435-9c5a-c0abfe77efd4">
+      <profileInstance Id="313b0ffe-9fe0-46e2-a678-73a830da8d06" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasPackages>
+      <package Id="e7a21b81-394f-478e-bed5-907b2a594a69" name="AdaptiveRoutePlanner">
+        <elementDefinition Id="d144fbee-17ba-468c-9f95-420a14d6a96a" />
+        <packagedElements>
+          <packageHasNamedElement>
+            <class Id="eac4d663-29a2-440e-8992-28714a4bba56" name="RoutePlanner" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="9ca67aa4-99a2-4cb8-a20a-23e28f77d73c" />
+              <ownedOperationsInternal>
+                <operation Id="64f0ea01-a568-468c-9680-aaf839424bc9" name="CalculateFastestRoute" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <description>Use A-Star</description>
+                  <elementDefinition Id="12f9879a-a066-4cd3-b167-389156ce0460" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="1264ccce-9f25-44b2-8fa3-4a01e0ef9107" name="start" direction="In">
+                        <elementDefinition Id="50c299ec-dc3e-4a20-8846-a9abb9131792" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="2e55fbea-59d7-4889-be48-0b3211caae1d" LastKnownName="Struct_Position" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="ed1544d5-89ce-4e5e-b82c-51c99db5f013" name="target" direction="In">
+                        <elementDefinition Id="505f119c-b7ba-4136-9aed-5f5bfed0e34d" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="2e55fbea-59d7-4889-be48-0b3211caae1d" LastKnownName="Struct_Position" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="814c62ce-8181-4b1c-81f2-58e66629b226" direction="Return">
+                        <elementDefinition Id="06f10589-d0a8-442c-8d14-6e5052e41543" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="b6628ed0-f015-4222-9c16-40d1cd28cc93" LastKnownName="List&lt;Nodes&gt;" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="3a1e5f2d-63a7-4fe5-acb5-5f0ba8f21490" name="AddMapData" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="b9a72a80-7a6f-4e4f-b0cd-78d819b646f9" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="d30f5c28-0270-4883-befc-c04961697bb5" name="Graph" direction="In" isUnique="false">
+                        <elementDefinition Id="1ff3c373-01fd-48d4-acdb-df084831cf19" />
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="165169d4-2587-4820-a01a-73f5a4273c9d" name="AddTrafficInformation" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="051f6e3c-6efd-480c-a60b-d5c5e195a457" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="284e6084-ce02-4f04-830e-021b3c390bf9" name="TrafficData" direction="In" isUnique="false">
+                        <elementDefinition Id="3967aaa0-e6de-491e-8063-02ec594d6e7d" />
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+              </ownedOperationsInternal>
+            </class>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="4744edf1-8711-431b-bde4-f4a6eeab7836" name="Struct_Position" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="1aeaa0a2-5776-498c-b84f-ed9f6aa8a80c" />
+              <ownedAttributesInternal>
+                <property Id="61571031-355e-49ac-a041-b8b1c700ac98" name="X" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="30cc1385-367f-40a8-8eef-ff59e931b37c" />
+                </property>
+                <property Id="6d25fc53-f483-4d30-8d2f-65679bdd573c" name="Y" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="faf32b66-9967-4a2d-bbb5-86a39825e713" />
+                </property>
+              </ownedAttributesInternal>
+            </class>
+          </packageHasNamedElement>
+        </packagedElements>
+      </package>
+    </logicalClassDesignerModelHasPackages>
+    <packageHasNamedElement>
+      <referencedType Id="2e55fbea-59d7-4889-be48-0b3211caae1d" name="Struct_Position" isAbstract="false" isLeaf="false" cachedFullName="AdaptiveRoutePlanner_ModelingProject::AdaptiveRoutePlanner::Struct_Position">
+        <elementDefinition Id="1aeaa0a2-5776-498c-b84f-ed9f6aa8a80c" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="b6628ed0-f015-4222-9c16-40d1cd28cc93" name="List&lt;Nodes&gt;" isAbstract="false" isLeaf="false" cachedFullName="List&lt;Nodes&gt;">
+        <elementDefinition Id="90ff6994-86e0-4a2e-88c7-a1d14541fc4d" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasPackages>
+      <package Id="118ce487-f78c-4649-811e-f2837278b1f8" name="RoutePlannerTestGUI">
+        <elementDefinition Id="59b4693e-1e76-4ffb-b162-eb569d3c4c4b" />
+        <packagedElements>
+          <packageHasNamedElement>
+            <class Id="b83b1c10-2329-41d3-903e-41a452f8945e" name="RoutePlannerTestGUI" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <elementDefinition Id="b8f1bce2-bc36-4ce3-b212-66e66b2b5980" />
+              <targetEnds>
+                <association Id="d0151b76-4705-48c9-8933-5c7e590e469e" isDerived="false" sourceEndRoleName="" targetEndRoleName="RoutePlanner" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="eac4d663-29a2-440e-8992-28714a4bba56" LastKnownName="RoutePlanner" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="e1eab6c0-2c03-4398-a3ba-bcf4233febc9" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <lowerValueInternal>
+                          <literalString Id="c2691e00-d294-4d6b-9876-4d68cda98165" name="Lower" value="*">
+                            <elementDefinition Id="aa43fa11-100b-4c4b-93b0-7e4ed88a8c83" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="b7191074-390e-4403-8de6-775b7f74f68d" name="Upper" value="*">
+                            <elementDefinition Id="e815063d-3329-48a3-a51c-7628a1cf6400" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="2f68efdc-ecee-40ac-812d-a7afcc924caf" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="b3e0fb05-7c05-4844-8c23-4f0c03b989aa" name="RoutePlanner" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="ba395e4a-a303-463f-b9a4-84351e670c38" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="8fb3b6c9-b8f1-4a26-9f74-b2b5e6cdcc37" />
+                </association>
+              </targetEnds>
+              <ownedAttributesInternal>
+                <property Id="35ad9e77-17c0-4d4d-b157-8d1bd4f512c6" name="routePlanner" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="6b53884b-1215-41ae-9aa6-2fd918849b80" />
+                </property>
+              </ownedAttributesInternal>
+            </class>
+          </packageHasNamedElement>
+        </packagedElements>
+      </package>
+    </logicalClassDesignerModelHasPackages>
+  </packagedElements>
+  <package Id="63a24f1f-8f31-48b7-a696-789b574e4c79" name="AdaptiveRoutePlanner_ModelingProject">
+    <elementDefinition Id="4d9ee90b-1668-43ea-ab31-b76426094a40" />
+  </package>
+</logicalClassDesignerModel>
