@@ -3,6 +3,7 @@
 #define ADAPTIVEROUTEPLANNER_HPP
 
 #include <list>
+#include <boost\graph\astar_search.hpp>
 
 class AdaptiveRoutePlanner
 {
