@@ -1,6 +1,6 @@
 #pragma once
-#ifndef ADAPTIVEROUTEPLANNER_H
-#define ADAPTIVEROUTEPLANNER_H
+#ifndef ADAPTIVEROUTEPLANNER_HPP
+#define ADAPTIVEROUTEPLANNER_HPP
 
 #include <list>
 
@@ -29,4 +29,4 @@ private:
 
 };
 
-#endif // !ADAPTIVEROUTEPLANNER_H
+#endif // !ADAPTIVEROUTEPLANNER_HPP

@@ -81,6 +81,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>I:\Programmierprojekte\BoostLibrary\boost_1_63_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -110,7 +111,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AdaptiveRoutePlanner.h" />
+    <ClInclude Include="AdaptiveRoutePlanner.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AdaptiveRoutePlanner.cpp" />
