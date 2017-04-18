@@ -115,6 +115,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AdaptiveRoutePlanner.hpp" />
+    <ClInclude Include="AdaptiveRoutePlannerConstants.hpp" />
     <ClInclude Include="tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
