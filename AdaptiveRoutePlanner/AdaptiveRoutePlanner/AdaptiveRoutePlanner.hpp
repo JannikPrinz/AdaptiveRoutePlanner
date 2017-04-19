@@ -12,15 +12,21 @@ using namespace std;
 using namespace tinyxml2;
 using namespace boost;
 
+typedef unsigned long long IdType;
+typedef float PositionType;
+typedef float CostType;
+
 /*
  * This struct defines which attributes are saved per vertex.
  */
 struct VertexProperty
 {
 	// NodeID from the parsed XML-Document (OSM-Data)
-	int nodeID;
-	int lon;
-	int lat;
+	IdType nodeID;
+	PositionType lon;
+	PositionType lat;
+
+	VertexProperty(IdType i = 0, PositionType lo = 0.0, PositionType la = 0.0) : nodeID(i), lon(lo), lat(la) {}
 };
 
 /*
@@ -30,7 +36,7 @@ struct EdgeProperty
 {
 	// cost factor which represents the time needed to travel along the edge using factors like
 	// distance, speed limit, ...
-	float costFactor;
+	CostType costFactor;
 };
 
 typedef adjacency_list<vecS, listS, directedS, VertexProperty, EdgeProperty> GraphType;
@@ -69,10 +75,10 @@ public:
 private:
 	XMLDocument inputData;
 	GraphType mapGraph;
-	std::unordered_map<int, VertexDescriptor> idMap;
+	std::unordered_map<IdType, VertexDescriptor> idMap;
 
 	void ParseDocument();
-
+	PositionType CalculateSquaredDistance(const VertexDescriptor& nodeID1, const VertexDescriptor& nodeID2);
 };
 
 #endif // !ADAPTIVEROUTEPLANNER_HPP
