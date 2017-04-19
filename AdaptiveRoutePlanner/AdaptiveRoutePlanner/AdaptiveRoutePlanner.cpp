@@ -4,9 +4,53 @@ AdaptiveRoutePlanner::AdaptiveRoutePlanner()
 {
 }
 
-std::list<int> AdaptiveRoutePlanner::CalculateFastestRoute(const int& startNodeID, const int& targetNodeID)
+std::list<IdType> AdaptiveRoutePlanner::CalculateFastestRoute(const IdType& startNodeID, const IdType& targetNodeID)
 {
-	return list<int>();
+	std::unordered_map<IdType, VertexDescriptor>::const_iterator start = idMap.find(startNodeID);
+	std::unordered_map<IdType, VertexDescriptor>::const_iterator target = idMap.find(targetNodeID);
+	if (start == idMap.end() || target == idMap.end()) return list<IdType>();
+	VertexDescriptor startVertex = (*start).second;
+	VertexDescriptor targetVertex = (*target).second;
+	//vector<VertexDescriptor> predecessors(num_vertices(mapGraph));
+	//vector<CostType> distances(num_vertices(mapGraph));
+
+	typedef boost::unordered_map<VertexDescriptor, VertexDescriptor> pred_map;
+	pred_map predecessor;
+	boost::associative_property_map<pred_map> pred_pmap(predecessor);
+	typedef boost::unordered_map<VertexDescriptor, PositionType> dist_map;
+	dist_map distance;
+	boost::associative_property_map<dist_map> dist_pmap(distance);
+	boost::associative_property_map<CostMapType> cost_map(weightMap);
+
+	list<IdType> solution;
+
+	try
+	{
+		// call A*
+		astar_search(
+			mapGraph, startVertex,
+			distance_heuristic (targetVertex, mapGraph),
+			boost::weight_map(cost_map).
+			predecessor_map(pred_pmap).
+			distance_map(dist_pmap).
+			visitor(astar_goal_visitor(targetVertex))
+		);
+	}
+	catch (found_target ft)
+	{ // found a path to the goal
+		for (VertexDescriptor u = targetVertex; u != startVertex; u = predecessor[u])
+			solution.push_front(mapGraph[u].nodeID);
+		solution.push_front(mapGraph[startVertex].nodeID);
+		//solution_length = distance[(*target).second];
+		return solution;
+
+		//list<VertexDescriptor> shortest_path;
+		//for (VertexDescriptor v = (*target).second;; v = predecessors[v]) {
+		//	shortest_path.push_front(v);
+		//	if (predecessors[v] == v)
+		//		break;
+	}
+	return list<IdType>();
 }
 
 bool AdaptiveRoutePlanner::AddMapData(const char* filePath)
@@ -105,8 +149,10 @@ void AdaptiveRoutePlanner::ParseDocument()
 					if (it1 != mapEnd && it2 != mapEnd)
 					{
 						cost = CalculateSquaredDistance((*it1).second, (*it2).second) / speedLimit;
-						mapGraph[add_edge((*it1).second, (*it2).second, mapGraph).first].costFactor = cost;
-						if (!isOneway) mapGraph[add_edge((*it2).second, (*it1).second, mapGraph).first].costFactor = cost;
+						//mapGraph[add_edge((*it1).second, (*it2).second, mapGraph).first].costFactor = cost;
+						//if (!isOneway) mapGraph[add_edge((*it2).second, (*it1).second, mapGraph).first].costFactor = cost;
+						weightMap.emplace(add_edge((*it1).second, (*it2).second, mapGraph).first, cost);
+						if (!isOneway) weightMap.emplace(add_edge((*it2).second, (*it1).second, mapGraph).first, cost);
 					}
 					id = id2;
 					it1 = it2;
@@ -118,10 +164,10 @@ void AdaptiveRoutePlanner::ParseDocument()
 	}
 }
 
-PositionType AdaptiveRoutePlanner::CalculateSquaredDistance(const VertexDescriptor& nodeID1, const VertexDescriptor& nodeID2)
+CostType AdaptiveRoutePlanner::CalculateSquaredDistance(const VertexDescriptor& nodeID1, const VertexDescriptor& nodeID2)
 {
-	PositionType lat = fabs(mapGraph[nodeID1].lat - mapGraph[nodeID2].lat);
-	PositionType lon = fabs(mapGraph[nodeID1].lon - mapGraph[nodeID2].lon);
+	CostType lat = mapGraph[nodeID1].lat - mapGraph[nodeID2].lat;
+	CostType lon = mapGraph[nodeID1].lon - mapGraph[nodeID2].lon;
 	return lat * lat + lon * lon;
 }
 

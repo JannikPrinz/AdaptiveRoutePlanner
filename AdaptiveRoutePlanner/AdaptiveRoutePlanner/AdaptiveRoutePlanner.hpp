@@ -36,11 +36,51 @@ struct EdgeProperty
 {
 	// cost factor which represents the time needed to travel along the edge using factors like
 	// distance, speed limit, ...
-	CostType costFactor;
+	//CostType costFactor;
 };
 
-typedef adjacency_list<vecS, listS, directedS, VertexProperty, EdgeProperty> GraphType;
+typedef adjacency_list<vecS, vecS, directedS, VertexProperty, no_property> GraphType;
+//typedef adjacency_list<vecS, listS, directedS, VertexProperty, EdgeProperty> GraphType;
 typedef graph_traits<GraphType>::vertex_descriptor VertexDescriptor;
+typedef graph_traits<GraphType>::edge_descriptor EdgeDescriptor;
+typedef boost::unordered_map<EdgeDescriptor, CostType> CostMapType;
+
+static CostType CalculateSquaredDistance(const VertexDescriptor& nodeID1, const VertexDescriptor& nodeID2, const GraphType& mapGraph)
+{
+	CostType lat = mapGraph[nodeID1].lat - mapGraph[nodeID2].lat;
+	CostType lon = mapGraph[nodeID1].lon - mapGraph[nodeID2].lon;
+	return lat * lat + lon * lon;
+}
+
+// euclidean distance heuristic
+class distance_heuristic : public astar_heuristic<GraphType, CostType>
+{
+public:
+	distance_heuristic(VertexDescriptor goal, GraphType mGraph) : m_goal(goal), mapGraph(mGraph) {}
+	CostType operator()(VertexDescriptor u)
+	{
+		return CalculateSquaredDistance(u, m_goal, mapGraph);
+	}
+private:
+	Vertex m_goal;
+	GraphType mapGraph;
+};
+
+struct found_target {}; // exception for termination
+
+// visitor that terminates when we find the goal
+class astar_goal_visitor : public boost::default_astar_visitor
+{
+public:
+	astar_goal_visitor(VertexDescriptor goal) : m_goal(goal) {}
+	void examine_vertex(VertexDescriptor u, const GraphType& g)
+	{
+		if (u == m_goal)
+			throw found_target();
+	}
+private:
+	VertexDescriptor m_goal;
+};
 
 class AdaptiveRoutePlanner
 {
@@ -52,14 +92,14 @@ public:
 	 * start- and target-Node.
 	 *
 	 * Parameters:
-	 * const int& startNodeID	: ID of the node from where the route starts
-	 * const int& targetNodeID	: ID of the node where the route ends
+	 * const IdType& startNodeID	: ID of the node from where the route starts
+	 * const IdType& targetNodeID	: ID of the node where the route ends
 	 *
 	 * Returns:
 	 * A list of node-id's, where the first id is the given start id and the last id is the given target id.
 	 * For each pair of id's (a, b) where b is the successor of a, exists an (directed) edge between node a to node b.
 	 */
-	std::list<int> CalculateFastestRoute(const int& startNodeID, const int& targetNodeID);
+	std::list<IdType> CalculateFastestRoute(const IdType& startNodeID, const IdType& targetNodeID);
 	/*
 	 * This method adds new map-data from a XML-Document which will be used for the route calculation.
 	 *
@@ -76,9 +116,10 @@ private:
 	XMLDocument inputData;
 	GraphType mapGraph;
 	std::unordered_map<IdType, VertexDescriptor> idMap;
+	CostMapType weightMap;
 
+	CostType CalculateSquaredDistance(const VertexDescriptor& nodeID1, const VertexDescriptor& nodeID2);
 	void ParseDocument();
-	PositionType CalculateSquaredDistance(const VertexDescriptor& nodeID1, const VertexDescriptor& nodeID2);
 };
 
 #endif // !ADAPTIVEROUTEPLANNER_HPP
