@@ -53,10 +53,12 @@ std::list<IdType> AdaptiveRoutePlanner::CalculateFastestRoute(const IdType& star
 	return list<IdType>();
 }
 
-bool AdaptiveRoutePlanner::AddMapData(const char* filePath)
+XMLError AdaptiveRoutePlanner::AddMapData(const char* filePath)
 {
 	XMLError parseError = inputData.LoadFile(filePath);
-	return parseError == XML_SUCCESS;
+	//inputData.SaveFile("TestXML.osm");
+	ParseDocument();
+	return parseError;
 }
 
 bool AdaptiveRoutePlanner::AddTrafficData()
@@ -66,8 +68,8 @@ bool AdaptiveRoutePlanner::AddTrafficData()
 
 void AdaptiveRoutePlanner::ParseDocument()
 {
-	XMLElement* nodeElement, *wayElement, *tagElement, *tagElementHighway, *tagElementSpeedLimit, *tagElementOneway, *wayNode1, *wayNode2;
-	std::unordered_map<const char*, int>::const_iterator it;
+	XMLElement* nodeElement, *wayElement, *tagElement, *tagElementHighway, *tagElementSpeedLimit, *tagElementOneway, *tagElementVehicle, *wayNode1, *wayNode2;
+	std::unordered_map<string, int>::const_iterator it;
 	std::unordered_map<IdType, VertexDescriptor>::const_iterator it1, it2, mapEnd;
 	VertexDescriptor vertexD;
 	int speedLimit;
@@ -92,6 +94,7 @@ void AdaptiveRoutePlanner::ParseDocument()
 		tagElementHighway = NULL;
 		tagElementSpeedLimit = NULL;
 		tagElementOneway = NULL;
+		tagElementVehicle = NULL;
 		tagElement = wayElement->FirstChildElement(OSM_XML_ELEMENT_TAG);
 		while (tagElement != NULL)
 		{
@@ -101,13 +104,15 @@ void AdaptiveRoutePlanner::ParseDocument()
 				tagElementSpeedLimit = tagElement;
 			if (tagElement->Attribute(OSM_XML_ATTRIBUTE_TAG_KEY, OSM_XML_KEY_TAG_ONEWAY))
 				tagElementOneway = tagElement;
+			if (tagElement->Attribute(OSM_XML_ATTRIBUTE_TAG_KEY, OSM_XML_KEY_TAG_VEHICLE))
+				tagElementVehicle = tagElement;
 			tagElement = tagElement->NextSiblingElement(OSM_XML_ELEMENT_TAG);
 		}
 
 		if (tagElementHighway != NULL)
 		{
 			it = DEFAULT_STREETS.find(tagElementHighway->Attribute(OSM_XML_ATTRIBUTE_TAG_VALUE));
-			if (it != DEFAULT_STREETS.end())
+			if (it != DEFAULT_STREETS.end() && ((tagElementVehicle == NULL) || !(tagElementVehicle->Attribute(OSM_XML_ATTRIBUTE_TAG_VALUE, OSM_XML_VALUE_VEHICLE_NO))))
 			{
 				// -> way is suitable, check speed limits:
 				if (tagElementSpeedLimit != NULL)

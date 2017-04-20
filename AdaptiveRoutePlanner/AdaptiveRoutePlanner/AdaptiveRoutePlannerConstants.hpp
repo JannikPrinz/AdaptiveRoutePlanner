@@ -17,7 +17,9 @@
 #define OSM_XML_KEY_TAG_HIGHWAY "highway"
 #define OSM_XML_KEY_TAG_MAXSPEED "maxspeed"
 #define OSM_XML_KEY_TAG_ONEWAY "oneway"
+#define OSM_XML_KEY_TAG_VEHICLE "vehicle"
 #define OSM_XML_VALUE_ONEWAY_YES "yes"
+#define OSM_XML_VALUE_VEHICLE_NO "no"
 #define OSM_XML_VALUE_HIGHWAY_MOTORWAY "motorway"
 #define OSM_XML_VALUE_HIGHWAY_TRUNK "trunk"
 #define OSM_XML_VALUE_HIGHWAY_PRIMARY "primary"
@@ -37,7 +39,15 @@
 #define DEFAULT_SPEED_LIMIT_50 50
 #define DEFAULT_SPEED_LIMIT_10 10
 
-static const std::unordered_map<const char*, int> DEFAULT_STREETS = {
+struct cmp_str
+{
+	bool operator()(char const *a, char const *b)
+	{
+		return std::strcmp(a, b) < 0;
+	}
+};
+
+static const std::unordered_map<std::string, int> DEFAULT_STREETS = {
 	{ OSM_XML_VALUE_HIGHWAY_MOTORWAY,		DEFAULT_SPEED_LIMIT_130 },
 	{ OSM_XML_VALUE_HIGHWAY_MOTORWAY_LINK,	DEFAULT_SPEED_LIMIT_130 },
 	{ OSM_XML_VALUE_HIGHWAY_TRUNK,			DEFAULT_SPEED_LIMIT_100 },

@@ -8,6 +8,9 @@
 #include "tinyxml2.h"
 #include "AdaptiveRoutePlannerConstants.hpp"
 
+// ToDo: Delete This:
+#include <iostream>
+
 using namespace std;
 using namespace tinyxml2;
 using namespace boost;
@@ -68,7 +71,7 @@ private:
 
 struct found_target {}; // exception for termination
 
-// visitor that terminates when we find the goal
+// visitor that terminates when the target vertex is found
 class astar_goal_visitor : public boost::default_astar_visitor
 {
 public:
@@ -109,12 +112,14 @@ public:
 	 * Returns:
 	 * True, if the parsing of the document doesn't throw any errors. False otherwise.
 	 */
-	bool AddMapData(const char* filePath);
+	XMLError AddMapData(const char* filePath);
 	bool AddTrafficData();
+	// ToDo: make this private again:
+	GraphType mapGraph;
 
 private:
-	XMLDocument inputData;
-	GraphType mapGraph;
+	tinyxml2::TinyXMLDocument inputData;
+
 	std::unordered_map<IdType, VertexDescriptor> idMap;
 	CostMapType weightMap;
 

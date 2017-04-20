@@ -5,6 +5,11 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AdaptiveRoutePlanner", "AdaptiveRoutePlanner\AdaptiveRoutePlanner.vcxproj", "{D4EE8BB6-814C-4961-9B42-95A532A6DA63}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AdaptiveRoutePlannerTestApplication", "AdaptiveRoutePlannerTestApplication\AdaptiveRoutePlannerTestApplication.vcxproj", "{C6840DFE-C37F-4C23-8FCA-27CCB165A386}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D4EE8BB6-814C-4961-9B42-95A532A6DA63} = {D4EE8BB6-814C-4961-9B42-95A532A6DA63}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +26,14 @@ Global
 		{D4EE8BB6-814C-4961-9B42-95A532A6DA63}.Release|x64.Build.0 = Release|x64
 		{D4EE8BB6-814C-4961-9B42-95A532A6DA63}.Release|x86.ActiveCfg = Release|Win32
 		{D4EE8BB6-814C-4961-9B42-95A532A6DA63}.Release|x86.Build.0 = Release|Win32
+		{C6840DFE-C37F-4C23-8FCA-27CCB165A386}.Debug|x64.ActiveCfg = Debug|x64
+		{C6840DFE-C37F-4C23-8FCA-27CCB165A386}.Debug|x64.Build.0 = Debug|x64
+		{C6840DFE-C37F-4C23-8FCA-27CCB165A386}.Debug|x86.ActiveCfg = Debug|Win32
+		{C6840DFE-C37F-4C23-8FCA-27CCB165A386}.Debug|x86.Build.0 = Debug|Win32
+		{C6840DFE-C37F-4C23-8FCA-27CCB165A386}.Release|x64.ActiveCfg = Release|x64
+		{C6840DFE-C37F-4C23-8FCA-27CCB165A386}.Release|x64.Build.0 = Release|x64
+		{C6840DFE-C37F-4C23-8FCA-27CCB165A386}.Release|x86.ActiveCfg = Release|Win32
+		{C6840DFE-C37F-4C23-8FCA-27CCB165A386}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
