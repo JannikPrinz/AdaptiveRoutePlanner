@@ -1,12 +1,12 @@
 #include "AdaptiveRoutePlannerTestApplication.hpp"
 
-#define FILENAME "KarlsruheNW.osm"
+#define FILENAME "map.osm"
 
 int main()
 {
-	AdaptiveRoutePlanner routePlanner;
+	AdaptiveRoutePlanner* routePlanner = new AdaptiveRoutePlanner;
 	clock_t start = clock();
-	XMLError addedData = routePlanner.AddMapData(FILENAME);
+	XMLError addedData = routePlanner->AddMapData(FILENAME);
 	cout << "Time needed for adding and parsing map-data: " << (double)(clock() - start) / CLOCKS_PER_SEC << " seconds." << endl;
 	string s = "";
 	s.append(EnumStrings[addedData]);
@@ -14,15 +14,19 @@ int main()
 
 	cout << s << endl;
 
-	cout << "Number of vertices in graph: " << num_vertices(routePlanner.mapGraph) << endl;
-	cout << "Number of edges in graph: " << num_edges(routePlanner.mapGraph) << endl;
+	cout << "Number of vertices in graph: " << num_vertices(routePlanner->mapGraph) << endl;
+	cout << "Number of edges in graph: " << num_edges(routePlanner->mapGraph) << endl;
 
 	start = clock();
 	//list<IdType> path = routePlanner.CalculateFastestRoute(15357760, 15357760);
 	//list<IdType> path = routePlanner.CalculateFastestRoute(15357760, 31152150);
-	list<IdType> path = routePlanner.CalculateFastestRoute(26940051, 55474925);
+	list<IdType> path = routePlanner->CalculateFastestRoute(4739742189, 26939547);
 	cout << "Time needed for calculating fastest route: " << (double)(clock() - start) / CLOCKS_PER_SEC << " seconds." << endl;
 	cout << "Number of nodes in shortest path: " << path.size() << endl;
+
+
+	routePlanner->~AdaptiveRoutePlanner();
+	//delete routePlanner;
 
 	// write route on map, download renderer here: http://maperitive.net
 	TinyXMLDocument ModifiedDocument;
@@ -49,12 +53,12 @@ int main()
 	ModifiedDocument.SaveFile("RouteMap.osm");
 
 	// print all node-ids:
-	it = path.begin();
-	while (it != path.end())
-	{
-		cout << (*it) << endl;
-		it++;
-	}
+	//it = path.begin();
+	//while (it != path.end())
+	//{
+	//	cout << (*it) << endl;
+	//	it++;
+	//}
 
     return 0;
 }

@@ -167,6 +167,7 @@ void AdaptiveRoutePlanner::ParseDocument()
 		}
 		wayElement = wayElement->NextSiblingElement(OSM_XML_ELEMENT_WAY);
 	}
+	inputData.Clear();
 }
 
 CostType AdaptiveRoutePlanner::CalculateSquaredDistance(const VertexDescriptor& nodeID1, const VertexDescriptor& nodeID2)
